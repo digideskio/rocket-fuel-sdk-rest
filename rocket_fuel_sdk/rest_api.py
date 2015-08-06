@@ -26,13 +26,23 @@ class RestSFMC:
         headers['Authorization'] = headers['Authorization']
         return headers
 
-    def _call_api(self, url_path, json_parameters,
+    def _call_api(self, url_path, json_parameters, http_method,
                   allow_access_token_refresh=True):
         '''
         calls api, handles expired access_token
         '''
         url = self.URL_DOMAIN + url_path
         payload = json.dumps(json_parameters)
+        print(url)
+        print(payload)
+        if http_method == 'post':
+            r = requests.post(url,
+                              headers=self._request_header(),
+                              data=payload)
+        elif http_method == 'put':
+            r = requests.put(url,
+                             headers=self._request_header(),
+                             data=payload)
         r = requests.post(url,
                           headers=self._request_header(),
                           data=payload)
@@ -40,8 +50,9 @@ class RestSFMC:
             # handle access_token expiry after an hour.
             if allow_access_token_refresh:
                 self.refresh_access_token(force_refresh=True)
-                return self._call_api(url_path,
-                                      json_parameters,
+                return self._call_api(url_path=url_path,
+                                      json_parameters=json_parameters,
+                                      http_method=http_method,
                                       allow_access_token_refresh=False)
             else:
                 return
@@ -81,5 +92,26 @@ class RestSFMC:
             'email': email_address,
             'validators': ['SyntaxValidator'],
         }
-        r = self._call_api(url_path, json_parameters)
+        r = self._call_api(url_path, json_parameters, http_method='post')
         return r.json()['valid']
+
+    def upsert_data_extension_rows(self, data_extension_key, pk_fields,
+                                   rows):
+        '''
+        https://code.exacttarget.com/apis-sdks/rest-api/v1/hub/data-events/postDataExtensionRowsetByKey.html
+
+        returns whether successful.
+        '''
+        # TODO: limit max number of rows to upsert at once.
+        path_template = '/hub/v1/dataevents/key:{key}/rowset'
+        path = path_template.format(key=data_extension_key)
+        json_parameters = []
+        for row in rows:
+            primary_keys = {pk_field: row[pk_field] for pk_field in pk_fields}
+            json_parameter = {
+                'keys': primary_keys,
+                'values': row,
+            }
+            json_parameters.append(json_parameter)
+        r = self._call_api(path, json_parameters, http_method='post')
+        return r.status_code == 200
