@@ -121,3 +121,10 @@ class RestSFMC:
         return self.upsert_data_extension_rows(data_extension_key=data_extension_key,
                                                pk_fields=pk_fields,
                                                rows=[row])
+
+    def trigger_send(self, triggered_send_key):
+        '''
+        https://code.exacttarget.com/apis-sdks/rest-api/v1/messaging/messageDefinitionSends.html
+        '''
+        # TODO: implement me.
+        pass
