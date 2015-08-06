@@ -1,4 +1,5 @@
 # rocket-fuel-sdk
+Supports py2 & py3.
 Wrapper around ET/SalesForce's fuel-sdk
 
 # Example
