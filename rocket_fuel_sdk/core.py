@@ -63,7 +63,8 @@ class SFMC:
         '''
         get access_token, either from on disk cache, or from the web.
         '''
-        # check last modified date with an hour?
+        # TODO: replace print with logging calls.
+        # TODO: check last modified date with an hour?
         if force_refresh or not os.path.isfile(self.access_token_cache):
             self.access_token = self.request_access_token()
             with open(self.access_token_cache, 'w') as f:
