@@ -43,9 +43,6 @@ class RestSFMC:
             r = requests.put(url,
                              headers=self._request_header(),
                              data=payload)
-        r = requests.post(url,
-                          headers=self._request_header(),
-                          data=payload)
         if r.status_code == 401:
             # handle access_token expiry after an hour.
             if allow_access_token_refresh:
