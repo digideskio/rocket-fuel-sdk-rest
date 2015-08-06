@@ -101,6 +101,9 @@ class RestSFMC:
         https://code.exacttarget.com/apis-sdks/rest-api/v1/hub/data-events/postDataExtensionRowsetByKey.html
 
         returns whether successful.
+
+        Note: if a field is nullable, it can not be specified in the uploaded
+        rows data.
         '''
         # TODO: limit max number of rows to upsert at once.
         path_template = '/hub/v1/dataevents/key:{key}/rowset'
