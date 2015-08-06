@@ -115,3 +115,9 @@ class RestSFMC:
             json_parameters.append(json_parameter)
         r = self._call_api(path, json_parameters, http_method='post')
         return r.status_code == 200
+
+    def upsert_data_extension_row(self, data_extension_key, pk_fields,
+                                  row):
+        return self.upsert_data_extension_rows(data_extension_key=data_extension_key,
+                                               pk_fields=pk_fields,
+                                               rows=[row])
