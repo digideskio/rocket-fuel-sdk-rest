@@ -3,7 +3,7 @@ import os.path
 import requests
 
 
-class SFMC:
+class RestSFMC:
     '''
     Sales Force Marketing Cloud API
     '''
