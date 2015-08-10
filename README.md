@@ -48,13 +48,11 @@ wsdl_file_local_loc: /tmp/ExactTargetWSDL.s6.xml
 ## FuelSDK Example
 ```	
 from rocket_fuel_sdk import FuelSFMC
-    sfmc = FuelSFMC()
 
-    props = [
-        'Name',
-        'CustomerKey',
-        ]
+sfmc = FuelSFMC()
 
-    reponse = sfmc.data_extension(action='get', props=props)
-    results = response.resulsts
+props = ['Name', 'CustomerKey']
+
+reponse = sfmc.data_extension(action='get', props=props)
+results = response.resulsts
 ```
