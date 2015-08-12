@@ -26,9 +26,20 @@ Wrapper around ET/SalesForce's fuel-sdk
     result = sfmc.upsert_data_extension_rows(data_extension_key=de_key,
                                              pk_fields=pk_fields,
                                              rows=customers)
+    ###
 
 
-
+    ts_key = 'my-ts-key'
+    recipient = {
+        'SubscriberKey': 'foo@bar.com',
+        'EmailAddress': 'foo@bar.com',
+        'firstname': 'foo',
+        'age': 666,
+    }
+    was_sent = sfmc.trigger_send(triggered_send_key=ts_key,
+                                 email_address=recipient['EmailAddress'],
+                                 subscriber_key=recipient['EmailAddress'],
+                                 recipient_attributes=recipient)
 
 # FuelSDK
 
@@ -56,3 +67,8 @@ props = ['Name', 'CustomerKey']
 reponse = sfmc.data_extension(action='get', props=props)
 results = response.resulsts
 ```
+
+# Caveat
+
+Please note this is still beta code, and at the time of writing (mid 2015)
+there is no guarantees on API stability.
