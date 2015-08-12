@@ -122,9 +122,36 @@ class RestSFMC:
                                                pk_fields=pk_fields,
                                                rows=[row])
 
-    def trigger_send(self, triggered_send_key):
+    def trigger_send(self, triggered_send_key,
+                     subscriber_key, email_address, recipient_attributes):
         '''
         https://code.exacttarget.com/apis-sdks/rest-api/v1/messaging/messageDefinitionSends.html
+
+        example response from API
+        status_code: 202
+
+        {
+            'requestId': 'f37f134b-8e3e-445f-a9cc-3b2296b6f627',
+            'responses': [
+                {
+                    'messages': ['Queued'],
+                    'hasErrors': False,
+                    'recipientSendId': 'f37f134b-8e3e-445f-a9cc-3b2296b6f627'
+                }
+            ]
+        }
         '''
-        # TODO: implement me.
-        pass
+        path_template = '/messaging/v1/messageDefinitionSends/key:{key}/send'
+        path = path_template.format(key=triggered_send_key)
+
+        json_parameters = {
+            'To': {
+                'Address': email_address,
+                'SubscriberKey': email_address,
+                'ContactAttributes': {
+                    'SubscriberAttributes': recipient_attributes,
+                },
+            },
+        }
+        r = self._call_api(path, json_parameters, http_method='post')
+        return r.status_code == 202
