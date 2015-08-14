@@ -1,1 +1,1 @@
-from .rest_api import RestSFMC
+from .core import RestSFMC
