@@ -4,7 +4,7 @@ Wrapper around ET/SalesForce's fuel-sdk
 
 # Example
 	
-    from rocket_fuel_sdk import RestSFMC
+    from rocket_fuel_sdk_rest import RestSFMC
     sfmc = RestSFMC(client_id='ID',
                 client_secret='SECRET')
     is_valid = sfmc.validate_email('dude@abides.com')
@@ -40,33 +40,6 @@ Wrapper around ET/SalesForce's fuel-sdk
                                  email_address=recipient['EmailAddress'],
                                  subscriber_key=recipient['EmailAddress'],
                                  recipient_attributes=recipient)
-
-# FuelSDK
-
-For the FuelSDK examples create a `~/.fuelsdk/config.python` file containing 
-the following. Replace clientid and clientsecret with your own.
-```
-[Web Services]
-appsignature: none
-clientid: XXXXXXXXXXXXXXXXXXXXXXXX
-clientsecret: XXXXXXXXXXXXXXXXXXXXXXXX
-defaultwsdl: https://webservice.exacttarget.com/etframework.wsdl
-authenticationurl: https://auth.exacttargetapis.com/v1/requestToken?legacy=1
-wsdl_file_local_loc: /tmp/ExactTargetWSDL.s6.xml
-```
-
-
-## FuelSDK Example
-```	
-from rocket_fuel_sdk import FuelSFMC
-
-sfmc = FuelSFMC()
-
-props = ['Name', 'CustomerKey']
-
-reponse = sfmc.data_extension(action='get', props=props)
-results = response.resulsts
-```
 
 # Caveat
 
