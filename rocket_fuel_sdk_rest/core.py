@@ -33,7 +33,7 @@ class RestSFMC:
         calls api, handles expired access_token
         '''
         url = self.URL_DOMAIN + url_path
-        for k, v in json_parameters:
+        for k, v in json_parameters.items():
             if isinstance(v, (datetime.date, datetime.datetime)):
                 json_parameters[k] = v.isoformat()
         payload = json.dumps(json_parameters)
