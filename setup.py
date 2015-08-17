@@ -19,5 +19,6 @@ setup(
     author_email='lex@jbadigital.com.com',
     url='https://github.com/jbadigital/rocket-fuel-sdk-rest',
     license=license,
+    install_requires=['requests'],
     packages=['rocket_fuel_sdk_rest']
 )
