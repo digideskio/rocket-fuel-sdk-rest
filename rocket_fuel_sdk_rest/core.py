@@ -33,9 +33,6 @@ class RestSFMC:
         calls api, handles expired access_token
         '''
         url = self.URL_DOMAIN + url_path
-        for k, v in json_parameters.items():
-            if isinstance(v, (datetime.date, datetime.datetime)):
-                json_parameters[k] = v.isoformat()
         payload = json.dumps(json_parameters)
         print(url)
         print(payload)
@@ -111,6 +108,9 @@ class RestSFMC:
         path = path_template.format(key=data_extension_key)
         json_parameters = []
         for row in rows:
+            for k, v in row.items():
+                if isinstance(v, (datetime.date, datetime.datetime)):
+                    row[k] = v.isoformat()
             primary_keys = {pk_field: row[pk_field] for pk_field in pk_fields}
             json_parameter = {
                 'keys': primary_keys,
