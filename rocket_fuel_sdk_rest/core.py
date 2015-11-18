@@ -2,6 +2,7 @@ import datetime
 import json
 import os.path
 import requests
+import time
 
 
 class RestSFMC:
@@ -36,14 +37,22 @@ class RestSFMC:
         payload = json.dumps(json_parameters)
         print(url)
         print(payload)
-        if http_method == 'post':
-            r = requests.post(url,
-                              headers=self._request_header(),
-                              data=payload)
-        elif http_method == 'put':
-            r = requests.put(url,
-                             headers=self._request_header(),
-                             data=payload)
+        for attempt in range(5):
+            try:
+                if http_method == 'post':
+                    r = requests.post(url,
+                                      headers=self._request_header(),
+                                      data=payload)
+                elif http_method == 'put':
+                    r = requests.put(url,
+                                     headers=self._request_header(),
+                                     data=payload)
+                break
+            except requests.exceptions.ConnectionError:
+                time.sleep(3)
+        else:   # no-break
+            raise requests.exceptions.ConnectionError
+
         if r.status_code == 401:
             # handle access_token expiry after an hour.
             if allow_access_token_refresh:
