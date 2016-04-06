@@ -168,3 +168,42 @@ class RestSFMC:
         }
         r = self._call_api(path, json_parameters, http_method='post')
         return r.status_code == 202
+
+    def send_sms(self, message_key, mobile_numbers, message=None,
+        subscribe=None, resubscribe=None, keyword=None):
+        '''
+        https://code.exacttarget.com/apis-sdks/rest-api/v1/sms/postMessageContactSend.html
+
+        example response from API
+        status_code: 202
+
+        HTTP/1.1 202 Accepted
+        {
+          "tokenId": "c21NCNSDN2sMMWM2miosdjEHH",
+        }
+
+        SEND /sms/v1/messageContact/Mjo3ODow/send
+        {
+            "mobileNumbers": [
+            "61413682052"
+            ],
+            "Subscribe": true,
+            "Resubscribe": true,
+            "keyword": "ROBTEST"
+        }
+        '''
+        path_template = '/sms/v1/messageContact/{message_key}/send'
+        path = path_template.format(message_key=message_key)
+
+        json_parameters = {
+            "mobileNumbers": mobile_numbers,
+            "Subscribe": subscribe,
+            "Resubscribe": resubscribe,
+            "keyword": keyword
+        }
+
+        if message:
+            json_parameters['messageText'] = message
+
+        r = self._call_api(path, json_parameters, http_method='post')
+        return r.status_code == 202
