@@ -170,7 +170,7 @@ class RestSFMC:
         return r.status_code == 202
 
     def send_sms(self, message_key, mobile_numbers, message=None,
-        subscribe=None, resubscribe=None, keyword=None):
+        subscribe=False, resubscribe=False, keyword=None, override=False):
         '''
         https://code.exacttarget.com/apis-sdks/rest-api/v1/sms/postMessageContactSend.html
 
@@ -197,13 +197,17 @@ class RestSFMC:
 
         json_parameters = {
             "mobileNumbers": mobile_numbers,
-            "Subscribe": subscribe,
-            "Resubscribe": resubscribe,
-            "keyword": keyword
+            "subscribe": subscribe,
+            "resubscribe": resubscribe,
+            "keyword": keyword,
+            "override": override
         }
 
         if message:
             json_parameters['messageText'] = message
+
+        if message:
+            json_parameters['keyword'] = keyword
 
         r = self._call_api(path, json_parameters, http_method='post')
         return r.status_code == 202
