@@ -15,6 +15,7 @@ class RestSFMC:
 
     def __init__(self, client_id, client_secret,
                  access_token_cache='/tmp/rocket_fuel_access_token.txt'):
+        # TODO(shauno): cache be default based on hash of client_id and client_secret
         self.client_id = client_id
         self.client_secret = client_secret
         self.access_token_cache = access_token_cache
