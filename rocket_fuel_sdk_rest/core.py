@@ -206,7 +206,7 @@ class RestSFMC:
         if message:
             json_parameters['messageText'] = message
 
-        if message:
+        if keyword:
             json_parameters['keyword'] = keyword
 
         r = self._call_api(path, json_parameters, http_method='post')
