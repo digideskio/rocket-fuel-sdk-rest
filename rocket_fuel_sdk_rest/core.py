@@ -131,7 +131,8 @@ class RestSFMC:
 
         print('status_code: {}'.format(r.status_code))
         print('reason: {}'.format(r.reason))
-        print('content: {}'.format(r.content))
+        if r.status_code != 200:
+            print('content: {}'.format(r.content))
 
         return r.status_code == 200
 
