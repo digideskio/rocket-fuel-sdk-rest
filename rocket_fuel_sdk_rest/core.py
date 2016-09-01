@@ -128,13 +128,18 @@ class RestSFMC:
             }
             json_parameters.append(json_parameter)
         r = self._call_api(path, json_parameters, http_method='post')
+
+        print('status_code: {}'.format(r.status_code))
+        print('reason: {}'.format(r.reason))
+        print('content: {}'.format(r.content))
+
         return r.status_code == 200
 
     def upsert_data_extension_row(self, data_extension_key, pk_fields,
                                   row):
-        return self.upsert_data_extension_rows(data_extension_key=data_extension_key,
-                                               pk_fields=pk_fields,
-                                               rows=[row])
+        return self.upsert_data_extension_rows(
+            data_extension_key=data_extension_key,
+            pk_fields=pk_fields, rows=[row])
 
     def trigger_send(self, triggered_send_key,
                      subscriber_key, email_address, recipient_attributes):
