@@ -37,7 +37,7 @@ class RestSFMC:
         url = self.URL_DOMAIN + url_path
         payload = json.dumps(json_parameters)
         print(url)
-        print(payload)
+        print('Calling API with {} entries.'.format(len(json_parameters)))
         for attempt in range(5):
             try:
                 if http_method == 'post':
