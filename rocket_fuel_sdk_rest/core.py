@@ -1,9 +1,12 @@
 import datetime
 import json
+import logging
 import os.path
 import requests
 import time
 
+
+logger = logging.getLogger(__name__)
 
 class RestSFMC:
     '''
@@ -36,8 +39,8 @@ class RestSFMC:
         '''
         url = self.URL_DOMAIN + url_path
         payload = json.dumps(json_parameters)
-        print(url)
-        print(payload)
+        logger.info("API call url: " + url)
+        logger.info("API payload: " + payload)
         for attempt in range(5):
             try:
                 if http_method == 'post':
@@ -88,11 +91,11 @@ class RestSFMC:
             self.access_token = self.request_access_token()
             with open(self.access_token_cache, 'w') as f:
                 f.write(self.access_token)
-            print(self.access_token, 'from web')
+            logger.info(self.access_token, 'from web')
         else:
             with open(self.access_token_cache, 'r') as f:
                 self.access_token = f.read()
-                print(self.access_token, 'from file')
+                logger.info(self.access_token, 'from file')
 
     def validate_email(self, email_address):
         url_path = '/address/v1/validateEmail'
