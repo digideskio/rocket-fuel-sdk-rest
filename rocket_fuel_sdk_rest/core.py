@@ -91,11 +91,11 @@ class RestSFMC:
             self.access_token = self.request_access_token()
             with open(self.access_token_cache, 'w') as f:
                 f.write(self.access_token)
-            logger.info(self.access_token, 'from web')
+            logger.info(self.access_token + ' from web')
         else:
             with open(self.access_token_cache, 'r') as f:
                 self.access_token = f.read()
-                logger.info(self.access_token, 'from file')
+                logger.info(self.access_token + 'from file')
 
     def validate_email(self, email_address):
         url_path = '/address/v1/validateEmail'
