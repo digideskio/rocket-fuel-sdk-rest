@@ -131,7 +131,7 @@ class RestSFMC:
             }
             json_parameters.append(json_parameter)
         r = self._call_api(path, json_parameters, http_method='post')
-        return r.status_code == 200
+        return (r.status_code == 200, r.text)
 
     def upsert_data_extension_row(self, data_extension_key, pk_fields,
                                   row):
@@ -171,7 +171,7 @@ class RestSFMC:
             },
         }
         r = self._call_api(path, json_parameters, http_method='post')
-        return r.status_code == 202
+        return (r.status_code == 202, r.text)
 
     def send_sms(self, message_key, mobile_numbers, message=None,
         subscribe=False, resubscribe=False, keyword=None, override=False):

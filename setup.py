@@ -12,7 +12,7 @@ with open('LICENSE') as f:
 
 setup(
     name='rocket-fuel-sdk-rest',
-    version='0.1.3',
+    version='0.2.0',
     description='ExactTarget REST API Wrapper',
     long_description=readme,
     author='JBA',
